@@ -2,9 +2,9 @@
 
 FILES=$(ls | grep -vE '.pk3|.sh')
 
-if [ -f DAR.pk3 ]; then
-	rm -rf DAR.pk3
+if [ -f weapons_balance.pk3 ]; then
+	rm -rf weapons_balance.pk3
 fi
 
-zip -r9 DAR.pk3 $FILES -x *.sh *.pk3
+zip -r9 weapons_balance.pk3 $FILES -x *.sh *.pk3
 

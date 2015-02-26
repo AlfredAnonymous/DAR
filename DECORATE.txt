@@ -241,6 +241,22 @@ ACTOR Boomstick : Shotgun replaces Shotgun
     }
 }
 
+ACTOR SSG : SuperShotgun replaces SuperShotgun
+{
+  Deselect:
+    SHT2 A 0 A_Lower
+    SHT2 A 0 A_Lower
+    SHT2 A 0 A_Lower
+    SHT2 A 1 A_Lower
+    Loop
+  Select:
+    SHT2 A 0 A_Raise
+    SHT2 A 0 A_Raise
+    SHT2 A 0 A_Raise
+    SHT2 A 1 A_Raise
+    Loop
+}
+
 ACTOR TheChaingun!!! : Chaingun replaces Chaingun
 {
    weapon.slotnumber 4
