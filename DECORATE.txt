@@ -1,12 +1,88 @@
-ACTOR Clip : Ammo 2007
+///
+/// PLAYER ///
+///
+///
+
+ACTOR DoomGuy : DoomPlayer replaces DoomPlayer
+{
+  Player.DisplayName "Marine"
+  Player.CrouchSprite "PLYC"
+  Player.StartItem "PistolDAR"
+  Player.StartItem "Melee"
+  Player.StartItem "Clip", 50
+  Player.StartItem "Mag", 50
+  Player.ColorRange 112, 127
+}
+
+
+///
+/// ITEMS ///
+///
+///
+
+ACTOR StimpackDAR : Stimpack replaces Stimpack
+{
+  Inventory.Amount 25
+}
+
+ACTOR MedikitDAR : Medikit replaces Medikit
+{
+  Inventory.Amount 50
+  Health.LowMessage 15, "$GOTMEDINEED"
+}
+
+ACTOR HealthBonusDAR : Health 2014
+{
+  Game Doom
+  SpawnID 152
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  Inventory.Amount 5
+  Inventory.MaxAmount 250
+  Inventory.PickupMessage "$GOTHTHBONUS"
+  States
+  {
+  Spawn:
+    BON1 ABCDCB 6
+    Loop
+  }
+}
+
+ACTOR BABDAR : BasicArmorBonus 2015
+{
+  Game Doom
+  SpawnID 22
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "$GOTARMBONUS"
+  Inventory.Icon "ARM1A0"
+  Armor.SavePercent 33.335
+  Armor.SaveAmount 5
+  Armor.MaxSaveAmount 250
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  States
+  {
+  Spawn:
+    BON2 ABCDCB 6
+    Loop
+  }
+}
+
+///
+/// AMMO ///
+///
+///
+
+ACTOR Mag : Ammo replaces Clip
 {
   Game Doom
   SpawnID 11
-  Inventory.PickupMessage "$GOTCLIP"
+  Inventory.PickupMessage "Picked up a Magazine."
   Inventory.Amount 100
   Inventory.MaxAmount 500
   Ammo.BackpackAmount 100
-  Ammo.BackpackMaxAmount 1000
+  Ammo.BackpackMaxAmount 999
   Inventory.Icon "CLIPA0"
   States
   {
@@ -16,16 +92,25 @@ ACTOR Clip : Ammo 2007
   }
 }
 
-ACTOR ClipboxDAR : Clipbox replaces Clipbox
+ACTOR Magbox : Mag replaces Clipbox
 {
+  Game Doom
+  SpawnID 139
+  Inventory.PickupMessage "$GOTCLIPBOX"
   Inventory.Amount 250
+  States
+  {
+  Spawn:
+    AMMO A -1
+    Stop
+  }
 }
 
-ACTOR Cell : Ammo 2047
+ACTOR CellDAR : Ammo replaces Cell
 {
   Game Doom
   SpawnID 75
-  Inventory.PickupMessage "$GOTCELL" // "Picked up an energy cell."
+  Inventory.PickupMessage "$GOTCELL"
   Inventory.Amount 50
   Inventory.MaxAmount 600
   Ammo.BackpackAmount 200
@@ -39,11 +124,25 @@ ACTOR Cell : Ammo 2047
   }
 }
 
-ACTOR Shell : Ammo 2008
+ACTOR CellPackDAR : CellDAR replaces CellPack
+{
+  Game Doom
+  SpawnID 142
+  Inventory.PickupMessage "$GOTCELLBOX"
+  Inventory.Amount 200
+  States
+  {
+  Spawn:
+    CELP A -1
+    Stop
+  }
+}
+
+ACTOR ShellDAR : Ammo replaces Shell
 {
   Game Doom
   SpawnID 12
-  Inventory.PickupMessage "$GOTSHELLS" // "Picked up 4 shotgun shells."
+  Inventory.PickupMessage "$GOTSHELLS"
   Inventory.Amount 6
   Inventory.MaxAmount 50
   Ammo.BackpackAmount 20
@@ -57,16 +156,25 @@ ACTOR Shell : Ammo 2008
   }
 }
 
-ACTOR ShellBoxDAR : ShellBox replaces ShellBox
+ACTOR ShellBoxDAR : ShellDAR replaces ShellBox
 {
+  Game Doom
+  SpawnID 143
+  Inventory.PickupMessage "$GOTSHELLBOX"
   Inventory.Amount 30
+  States
+  {
+  Spawn:
+    SBOX A -1
+    Stop
+  }
 }
 
-ACTOR RocketAmmo : Ammo 2010
+ACTOR RocketAmmoDAR : Ammo replaces RocketAmmo
 {
   Game Doom
   SpawnID 140
-  Inventory.PickupMessage "$GOTROCKET" // "Picked up a rocket."
+  Inventory.PickupMessage "$GOTROCKET"
   Inventory.Amount 1
   Inventory.MaxAmount 30
   Ammo.BackpackAmount 20
@@ -80,13 +188,14 @@ ACTOR RocketAmmo : Ammo 2010
   }
 }
 
-ACTOR Fist : Weapon
+///
+/// WEAPONS ///
+///
+///
+
+
+ACTOR Melee : Weapon replaces Fist
 {
-  Game Doom
-  Weapon.SelectionOrder 3700
-  weapon.kickback 0
-  Obituary "$OB_MPFIST"
-  Tag "$TAG_FIST"
   +INVENTORY.UNDROPPABLE
   +WEAPON.MELEEWEAPON
   +WEAPON.WIMPY_WEAPON
@@ -96,15 +205,11 @@ ACTOR Fist : Weapon
     PUNG A 1 A_WeaponReady
     Loop
   Deselect:
-    PUNG A 0 A_Lower
-	PUNG A 0 A_Lower
-	PUNG A 0 A_Lower
+    PUNG AAA 0 A_Lower
 	PUNG A 1 A_Lower
     Loop
   Select:
-    PUNG A 0 A_Raise
-	PUNG A 0 A_Raise
-	PUNG A 0 A_Raise
+    PUNG AAA 0 A_Raise
 	PUNG A 1 A_Raise
     Loop
   Fire:
@@ -121,53 +226,6 @@ ACTOR Fist : Weapon
     PUNG B 3 A_ReFire
     Goto Ready
   }
-}
-
-ACTOR Pistol : DoomWeapon 5010
-{
-	Game Doom
-	Weapon.SelectionOrder 1900
-	Weapon.AmmoUse "1"
-	Weapon.AmmoType "Clip"
-    Weapon.AmmoGive 75
-	+WEAPON.WIMPY_WEAPON
-	Obituary "%k blasted %o with %p pistol."
-	Inventory.Pickupmessage "$PICKUP_PISTOL_DROPPED"
-	Tag "$TAG_PISTOL"
-    States
-    {
-    Ready:
-      PISG A 1 A_WeaponReady
-      Loop
-    Deselect:
-      PISG A 0 A_Lower
-	  PISG A 0 A_Lower
-	  PISG A 0 A_Lower
-      PISG A 1 A_Lower
-      Loop
-    Select:
-      PISG A 0 A_Raise
-	  PISG A 0 A_Raise
-	  PISG A 0 A_Raise
-      PISG A 1 A_Raise
-      Loop
-    Fire:
-      PISG A 2
-      TNT1 A 0 A_PlaySound("weapons/pistol", CHAN_WEAPON)
-      TNT1 A 0 A_GunFlash
-	  PISG B 6 A_FireBullets(1.2, 0, 1, 30, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
-      PISG C 8
-      PISG B 1 A_ReFire
-      Goto Ready
-    Flash:
-      PISF A 7 Bright A_Light1
-      Goto LightDone
-      PISF A 7 Bright A_Light1
-      Goto LightDone
-    Spawn:
-      PIST A -1
-      Stop
-    }
 }
 
 ACTOR MeatGrinder : Chainsaw replaces Chainsaw
@@ -193,7 +251,7 @@ ACTOR MeatGrinder : Chainsaw replaces Chainsaw
       SAWG C 1 A_Raise
       Loop
     Fire:
-      SAWG AB 4 A_Saw ("weapons/sawfull","weapons/sawhit",20)
+      SAWG AB 4 A_Saw ("weapons/sawfull","weapons/sawhit",30)
       SAWG B 0 A_ReFire
       Goto Ready
     Spawn:
@@ -202,21 +260,60 @@ ACTOR MeatGrinder : Chainsaw replaces Chainsaw
     }
 }
 
+ACTOR PistolDAR : Weapon replaces Pistol
+{
+	Weapon.SlotNumber 2
+	Weapon.AmmoUse "1"
+	Weapon.AmmoGive 20
+	Weapon.AmmoType "Mag"
+	Obituary "%k blasted %o with the pistol."
+	+WEAPON.WIMPY_WEAPON
+	+NOEXTREMEDEATH
+    States
+    {
+    Ready:
+	  TNT1 A 0
+	  TNT1 A 0
+	  TNT1 A 0
+      PISG A 7 A_WeaponReady
+      Loop
+    Deselect:
+      TNT1 AAA 0 A_Lower
+      PISG A 1 A_Lower
+      Loop
+    Select:
+      TNT1 AAA 0 A_Raise
+      PISG A 1 A_Raise
+      Loop
+    Fire:
+      PISG A 2
+	  TNT1 A 0 A_PlaySound("weapons/pistol", CHAN_WEAPON)
+      TNT1 A 0 A_GunFlash
+	  PISG B 6 BRIGHT A_FireBullets(0, 0, 1, 50, "BulletPuff", FBF_USEAMMO|FBF_NORANDOM)
+	  PISG C 1
+      PISG B 1 A_ReFire
+	  Goto Ready
+	Hold:
+	  PISG A 1 A_Weaponready(WRF_NOFIRE|WRF_NOSWITCH)
+	  TNT1 A 0 A_Refire
+	  Goto Ready
+    }
+}
+
 ACTOR SSG : SuperShotgun replaces SuperShotgun
 {
   weapon.slotnumber 3
+  Weapon.AmmoUse "4"
+  Weapon.AmmoType "ShellDAR"
+  +NOEXTREMEDEATH
   States
   {
   Deselect:
-    SHT2 A 0 A_Lower
-    SHT2 A 0 A_Lower
-    SHT2 A 0 A_Lower
+    SHT2 AAA 0 A_Lower
     SHT2 A 1 A_Lower
     Loop
   Select:
-    SHT2 A 0 A_Raise
-    SHT2 A 0 A_Raise
-    SHT2 A 0 A_Raise
+    SHT2 AAA 0 A_Raise
     SHT2 A 1 A_Raise
     Loop
   }
@@ -227,41 +324,39 @@ ACTOR Boomstick : Shotgun replaces Shotgun
 	weapon.slotnumber 3
 	Weapon.AmmoUse "1"
 	Weapon.AmmoGive "14"
+	Weapon.AmmoType "ShellDAR"
+	+NOEXTREMEDEATH
     States
     {
     Ready:
       SHTG A 1 A_WeaponReady
       Loop
     Deselect:
-      SHTG A 0 A_Lower
-	  SHTG A 0 A_Lower
-	  SHTG A 0 A_Lower
+      SHTG AAA 0 A_Lower
       SHTG A 1 A_Lower
       Loop
     Select:
-      SHTG A 0 A_Raise
-	  SHTG A 0 A_Raise
-	  SHTG A 0 A_Raise
+      SHTG AAA 0 A_Raise
       SHTG A 1 A_Raise
       Loop
     Fire:
-      SHTG A 1
+      SHTG A 0
       TNT1 A 0 A_PlaySound ("weapons/shotgf", CHAN_WEAPON)
       TNT1 A 0 A_GunFlash
-      SHTG A 5 A_FireBullets (1.2, 1.2, 5, 18, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+      SHTG A 6 BRIGHT A_FireBullets (1, 0.5, 6, 14, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
       SHTG BC 5
       SHTG D 4
-      SHTG CB 5
-      SHTG A 3
-      SHTG A 7 A_ReFire
+	  SHTG CB 5
+      SHTG A 1
+      SHTG A 5 A_ReFire
       Goto Ready
-    Flash:
+	Flash:
       SHTF A 4 Bright A_Light1
       SHTF B 3 Bright A_Light2
       Goto LightDone
     Spawn:
       SHOT A -1
-      Stop 
+      Stop
     }
 }
 
@@ -270,39 +365,27 @@ ACTOR TheChaingun!!! : Chaingun replaces Chaingun
    weapon.slotnumber 4
    Weapon.AmmoUse 2
    Weapon.AmmoGive 75
-   Weapon.AmmoType "Clip"
+   Weapon.AmmoType "Mag"
+   +NOEXTREMEDEATH
    States
    {
    Ready:
      CHGG A 1 A_WeaponReady
      Loop
    Deselect:
-     CHGG A 0 A_Lower
-	 CHGG A 0 A_Lower
-	 CHGG A 0 A_Lower
+     CHGG AAA 0 A_Lower
 	 CHGG A 1 A_Lower
      Loop
    Select:
-     CHGG A 0 A_Raise
-	 CHGG A 0 A_Raise
-	 CHGG A 0 A_Raise
+     CHGG AAA 0 A_Raise
 	 CHGG A 1 A_Raise
      Loop
    Fire:
      TNT1 A 0 A_PlaySound("weapons/chngun", CHAN_WEAPON)
 	 TNT1 A 0 A_GunFlash
-     CHGG AB 2 A_FireBullets(4, 2, 1, 4, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
-	 CHGG AB 2 A_FireBullets(4, 2, 1, 4, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+     CHGG AB 4 BRIGHT A_FireBullets(3.2, 2, 2, 4, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
      CHGG B 0 A_ReFire
      Goto Ready
-   Flash:
-     CHGF A 5 Bright A_Light1
-     Goto LightDone
-     CHGF B 5 Bright A_Light1
-     Goto LightDone
-   Spawn:
-     MGUN A -1
-     Stop
    }
 }
 
@@ -332,26 +415,55 @@ ACTOR RocketLawnChair : RocketLauncher replaces RocketLauncher
     Loop
   Fire:
 	MISG A 8 A_GunFlash
-    MISG B 20 A_FireMissile
-    MISG B 1 A_ReFire
+    MISG B 12 BRIGHT A_FireMissile
+    MISG B 0 A_ReFire
+    Goto Ready
+  }
+}
+
+ACTOR BulletHell : PlasmaRifle replaces PlasmaRifle
+{
+  weapon.slotnumber 6
+  Weapon.AmmoGive 80
+  Weapon.AmmoType "CellDAR"
+  States
+  {
+  Ready:
+    PLSG A 1 A_WeaponReady
+    Loop
+  Deselect:
+    PLSG A 0 A_Lower
+	PLSG A 1 A_Lower
+    Loop
+  Select:
+    PLSG A 1 A_Raise
+    Loop
+  Fire:
+    PLSG A 2 BRIGHT A_FirePlasma
+    PLSG B 15 A_ReFire
     Goto Ready
   Flash:
-    MISF A 3 Bright A_Light1
-    MISF B 4 Bright
-    MISF CD 4 Bright A_Light2
+    PLSF A 4 Bright A_Light1
+    Goto LightDone
+    PLSF B 4 Bright A_Light1
     Goto LightDone
   Spawn:
-    LAUN A -1
+    PLAS A -1
     Stop
   }
 }
 
-ACTOR Rocket
+///
+/// PROJECTILES ///
+///
+///
+
+ACTOR RocketDAR : Rocket replaces Rocket
 {
-  Radius 6
+  Radius 7
   Height 8
-  Speed 35
-  Damage (120)
+  Speed 28
+  Damage (80)
   Projectile
   +EXTREMEDEATH
   +DEHEXPLOSION
@@ -366,40 +478,9 @@ ACTOR Rocket
     MISL A 1 Bright
     Loop
   Death:
-    MISL B 8 Bright A_Explode (80,160,TRUE,8)
+    MISL B 8 Bright A_Explode
     MISL C 6 Bright
     MISL D 4 Bright
-    Stop
-  }
-}
-
-ACTOR BulletHell : PlasmaRifle replaces PlasmaRifle
-{
-  weapon.slotnumber 6
-  Weapon.AmmoGive 80
-  States
-  {
-  Ready:
-    PLSG A 1 A_WeaponReady
-    Loop
-  Deselect:
-    PLSG A 0 A_Lower
-	PLSG A 1 A_Lower
-    Loop
-  Select:
-    PLSG A 1 A_Raise
-    Loop
-  Fire:
-    PLSG A 2 A_FirePlasma
-    PLSG B 15 A_ReFire
-    Goto Ready
-  Flash:
-    PLSF A 4 Bright A_Light1
-    Goto LightDone
-    PLSF B 4 Bright A_Light1
-    Goto LightDone
-  Spawn:
-    PLAS A -1
     Stop
   }
 }
@@ -412,55 +493,19 @@ ACTOR PlasmaBallDAR : PlasmaBall replaces PlasmaBall
   Damage (7)
   Projectile
   +RANDOMIZE
+  +EXTREMEDEATH
+  +PIERCEARMOR
   RenderStyle Add
-  Alpha 0.30
+  Alpha 1.0
 }
 
-ACTOR StimpackDAR : Stimpack replaces Stimpack
+ACTOR BulletPuffDAR : BulletPuff replaces BulletPuff
 {
-  Inventory.Amount 25
-}
-
-ACTOR MedikitDAR : Medikit replaces Medikit
-{
-  Inventory.Amount 50
-  Health.LowMessage 15, "$GOTMEDINEED"
-}
-
-ACTOR HealthBonusDAR : Health 2014
-{
-  Game Doom
-  SpawnID 152
-  +COUNTITEM
-  +INVENTORY.ALWAYSPICKUP
-  Inventory.Amount 5
-  Inventory.MaxAmount 250
-  Inventory.PickupMessage "$GOTHTHBONUS" // "Picked up a health bonus."
-  States
+  Alpha 1.0
+  VSpeed .5
+  states
   {
-  Spawn:
-    BON1 ABCDCB 6
-    Loop
-  }
-}
-
-ACTOR BABDAR : BasicArmorBonus 2015
-{
-  Game Doom
-  SpawnID 22
-  Radius 20
-  Height 16
-  Inventory.PickupMessage "$GOTARMBONUS" // "Picked up an armor bonus."
-  Inventory.Icon "ARM1A0"
-  Armor.SavePercent 33.335
-  Armor.SaveAmount 5
-  Armor.MaxSaveAmount 250
-  +COUNTITEM
-  +INVENTORY.ALWAYSPICKUP
-  States
-  {
-  Spawn:
-    BON2 ABCDCB 6
-    Loop
+    PUFF A 2 Bright
+	PUFF B 15
   }
 }

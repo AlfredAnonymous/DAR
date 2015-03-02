@@ -1,0 +1,11 @@
+clearplayerclasses
+addplayerclass DoomGuy
+
+
+weaponselection DAR
+setslot 1 Melee, MeatGrinder
+setslot 2 PistolDAR
+setslot 3 SSG, Boomstick
+setslot 4 TheChaingun!!!
+setslot 5 RocketLawnChair
+setslot 6 BulletHell
