@@ -170,6 +170,38 @@ ACTOR ShellBoxDAR : ShellDAR replaces ShellBox
   }
 }
 
+ACTOR RocketAmmoDAR : Ammo replaces RocketAmmo
+{
+  Game Doom
+  SpawnID 140
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 50
+  Inventory.Icon "ROCKA0"
+  States
+  {
+  Spawn:
+    ROCK A -1
+    Stop
+  }
+}
+
+ACTOR RocketBoxDAR : RocketAmmoDAR replaces RocketBox
+{
+  Game Doom
+  SpawnID 141
+  Inventory.PickupMessage "$GOTROCKBOX"
+  Inventory.Amount 5
+  States
+  {
+  Spawn:
+    BROK A -1
+    Stop
+  }
+}
+
 ///
 /// WEAPONS ///
 ///
@@ -391,6 +423,7 @@ ACTOR TheChaingun!!! : Chaingun replaces Chaingun
 ACTOR RocketLawnChair : RocketLauncher replaces RocketLauncher
 {
   weapon.slotnumber 5
+  Weapon.AmmoType "RocketAmmoDAR"
   Weapon.AmmoGive 10
   weapon.kickback 50
   +WEAPON.NOAUTOFIRE
