@@ -1,7 +1,7 @@
 # Pistol
 Hits much harder than normal doom's pistol and is perfectly accurate. Great for long range engagements.
 # Shotgun
-Much stronger and has a tight spread. Good for ranged combat.
+Much stronger and has a tight spread. Good for distance combat and in conjunction with faster firing guns.
 # Chaingun
 Mild spin-up time before firing. Hits more often and harder some of the time, good choice for up close and mid-range weapon.
 # Rocket Launcher
