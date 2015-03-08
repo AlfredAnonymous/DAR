@@ -170,24 +170,6 @@ ACTOR ShellBoxDAR : ShellDAR replaces ShellBox
   }
 }
 
-ACTOR RocketAmmoDAR : Ammo replaces RocketAmmo
-{
-  Game Doom
-  SpawnID 140
-  Inventory.PickupMessage "$GOTROCKET"
-  Inventory.Amount 1
-  Inventory.MaxAmount 30
-  Ammo.BackpackAmount 20
-  Ammo.BackpackMaxAmount 50
-  Inventory.Icon "ROCKA0"
-  States
-  {
-  Spawn:
-    ROCK A -1
-    Stop
-  }
-}
-
 ///
 /// WEAPONS ///
 ///
