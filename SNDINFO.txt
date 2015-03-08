@@ -1,1 +1,3 @@
 weapons/pistol		sounds/newpistol.wav
+weapons/chngunpre	sounds/chngunpre.wav
+weapons/chngunpost	sounds/chngunpost.wav
