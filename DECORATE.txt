@@ -397,19 +397,16 @@ ACTOR TheChaingun!!! : Chaingun replaces Chaingun
    Fire:
      CHGG ABABAB 2 A_PlaySound("weapons/chngunpre", CHAN_AUTO)
      TNT1 A 0 A_PlaySound("weapons/chngun", CHAN_WEAPON)
-	 TNT1 A 0 A_PlaySound("weapons/chngunpost", CHAN_AUTO, 0.6)
+	 CHGG AB 2 A_PlaySound("weapons/chngunpost", CHAN_AUTO, 0.6)
 	 TNT1 A 0 A_GunFlash
-	 CHGG ABAB 4 A_FireBullets(2.2, 1.5, 1, 5, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+	 CHGG AB 1 A_FireBullets(1.5, 1.5, 1, 2, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
      CHGG B 0 A_ReFire
      Goto Ready
    Hold:
-     TNT1 A 0 A_PlaySound("weapons/chngun", CHAN_WEAPON)
 	 TNT1 A 0 A_PlaySound("weapons/chngunpost", CHAN_AUTO, 0.6)
-	 TNT1 A 0 A_GunFlash
-	 CHGG AB 2 A_FireBullets(9, 1.5, 1, 30, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 	 TNT1 A 0 A_PlaySound("weapons/chngun", CHAN_WEAPON)
 	 TNT1 A 0 A_GunFlash
-	 CHGG ABAB 2 A_FireBullets(2.2, 1.5, 1, 5, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+	 CHGG AB 2 A_FireBullets(9, 1.5, 1, 8, "BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
      CHGG B 0 A_ReFire
      Goto Ready
    Flash:
@@ -471,7 +468,7 @@ ACTOR BulletHell : PlasmaRifle replaces PlasmaRifle
     PLSG A 1 A_Raise
     Loop
   Fire:
-    PLSG A 2 BRIGHT A_FirePlasma
+    PLSG A 2 BRIGHT A_FireCustomMissile("PlasmaBallDAR",0,1,0,-4,0)
     PLSG B 15 A_ReFire
     Goto Ready
   Flash:
@@ -517,18 +514,30 @@ ACTOR RocketDAR : Rocket replaces Rocket
   }
 }
 
-ACTOR PlasmaBallDAR : PlasmaBall replaces PlasmaBall
+ACTOR PlasmaBallDAR : FastProjectile
 {
   Radius 4
   Height 4
   Speed 70
-  Damage (7)
+  Damage (6)
   Projectile
   +RANDOMIZE
   +EXTREMEDEATH
   +PIERCEARMOR
   RenderStyle Add
-  Alpha 1.0
+  Alpha 0.5
+  SeeSound "weapons/plasmaf"
+  DeathSound "weapons/plasmax"
+  Obituary "$OB_MPPLASMARIFLE"
+  States
+    {
+  Spawn:
+    PLSS AB 2 Bright
+    Loop
+  Death:
+    PLSE ABCDE 6 Bright
+    Stop
+    }
 }
 
 ACTOR BulletPuffDAR : BulletPuff replaces BulletPuff

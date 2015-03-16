@@ -1,11 +1,12 @@
 clearplayerclasses
 addplayerclass DoomGuy
 
+weaponsection "DAR"
 
-weaponselection DAR
+
 setslot 1 The_Best_Gun_in_the_Game Melee
 setslot 2 PistolDAR
-setslot 3 SSG Boomstick
+setslot 3 Boomstick SSG
 setslot 4 TheChaingun!!!
 setslot 5 RocketLawnChair
 setslot 6 BulletHell
