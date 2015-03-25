@@ -37,8 +37,8 @@ ACTOR HealthBonusDAR : Health 2014
   SpawnID 152
   +COUNTITEM
   +INVENTORY.ALWAYSPICKUP
-  Inventory.Amount 5
-  Inventory.MaxAmount 250
+  Inventory.Amount 2
+  Inventory.MaxAmount 175
   Inventory.PickupMessage "$GOTHTHBONUS"
   States
   {
@@ -57,8 +57,8 @@ ACTOR BABDAR : BasicArmorBonus 2015
   Inventory.PickupMessage "$GOTARMBONUS"
   Inventory.Icon "ARM1A0"
   Armor.SavePercent 33.335
-  Armor.SaveAmount 5
-  Armor.MaxSaveAmount 250
+  Armor.SaveAmount 2
+  Armor.MaxSaveAmount 175
   +COUNTITEM
   +INVENTORY.ALWAYSPICKUP
   States
