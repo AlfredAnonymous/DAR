@@ -5,9 +5,9 @@ weaponsection "DAR"
 
 
 setslot 1 The_Best_Gun_in_the_Game Melee
-setslot 2 PistolDAR
+setslot 2 Handgun
 setslot 3 Boomstick SSG
 setslot 4 TheChaingun!!!
-setslot 5 RocketLawnChair
-setslot 6 BulletHell
-setslot 7 BFG9000
+setslot 5 RocketLawnChair GrenadeLauncher
+setslot 6 BulletHell Railgun
+setslot 7 BFG9000 BFG10K

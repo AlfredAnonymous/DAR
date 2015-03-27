@@ -272,7 +272,7 @@ ACTOR The_Best_Gun_in_the_Game : Chainsaw replaces Chainsaw
     }
 }
 
-ACTOR PistolDAR : Weapon replaces Pistol
+ACTOR Handgun : Weapon replaces Pistol
 {
 	Weapon.SlotNumber 2
 	weapon.selectionorder 15
