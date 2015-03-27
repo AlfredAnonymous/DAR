@@ -7,7 +7,7 @@ ACTOR DoomGuy : DoomPlayer replaces DoomPlayer
 {
   Player.DisplayName "Marine"
   Player.CrouchSprite "PLYC"
-  Player.StartItem "PistolDAR"
+  Player.StartItem "Handgun"
   Player.StartItem "Melee"
   Player.StartItem "Clip", 50
   Player.StartItem "Mag", 50
