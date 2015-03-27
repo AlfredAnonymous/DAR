@@ -213,7 +213,7 @@ ACTOR Melee : Weapon replaces Fist
   +INVENTORY.UNDROPPABLE
   +WEAPON.MELEEWEAPON
   +WEAPON.WIMPY_WEAPON
-  weapon.selectionorder 20
+  weapon.selectionorder 3700
   States
   {
   Ready:
@@ -246,7 +246,7 @@ ACTOR Melee : Weapon replaces Fist
 ACTOR The_Best_Gun_in_the_Game : Chainsaw replaces Chainsaw
 {
 	weapon.slotnumber 1
-	weapon.selectionorder 19
+	weapon.selectionorder 2200
 	weapon.kickback 0
 	+WEAPON.MELEEWEAPON
     States
@@ -275,7 +275,7 @@ ACTOR The_Best_Gun_in_the_Game : Chainsaw replaces Chainsaw
 ACTOR Handgun : Weapon replaces Pistol
 {
 	Weapon.SlotNumber 2
-	weapon.selectionorder 15
+	weapon.selectionorder 1900
 	Weapon.AmmoUse "1"
 	Weapon.AmmoGive 50
 	Weapon.AmmoType "Mag"
@@ -318,7 +318,7 @@ ACTOR Handgun : Weapon replaces Pistol
 ACTOR SSG : SuperShotgun replaces SuperShotgun
 {
   weapon.slotnumber 3
-  weapon.selectionorder 1
+  weapon.selectionorder 400
   Weapon.AmmoUse "2"
   Weapon.AmmoGive 20
   Weapon.AmmoType "ShellDAR"
@@ -341,7 +341,7 @@ ACTOR SSG : SuperShotgun replaces SuperShotgun
 ACTOR Boomstick : Shotgun replaces Shotgun
 {
 	weapon.slotnumber 3
-	weapon.selectionorder 5
+	weapon.selectionorder 1300
 	Weapon.AmmoUse "1"
 	Weapon.AmmoGive "14"
 	Weapon.AmmoType "ShellDAR"
@@ -384,7 +384,7 @@ ACTOR Boomstick : Shotgun replaces Shotgun
 ACTOR TheChaingun!!! : Chaingun replaces Chaingun
 {
    weapon.slotnumber 4
-   weapon.selectionorder 4
+   weapon.selectionorder 700
    Weapon.AmmoUse 1
    Weapon.AmmoGive 50
    Weapon.AmmoType "Mag"
@@ -428,7 +428,7 @@ ACTOR TheChaingun!!! : Chaingun replaces Chaingun
 ACTOR RocketLawnChair : RocketLauncher replaces RocketLauncher
 {
   weapon.slotnumber 5
-  weapon.selectionorder 11
+  weapon.selectionorder 2500
   Weapon.AmmoType "RocketAmmoDAR"
   Weapon.AmmoGive 10
   weapon.kickback 50
@@ -462,7 +462,7 @@ ACTOR RocketLawnChair : RocketLauncher replaces RocketLauncher
 ACTOR BulletHell : PlasmaRifle replaces PlasmaRifle
 {
   weapon.slotnumber 6
-  weapon.selectionorder 12
+  weapon.selectionorder 100
   weapon.ammouse 2
   Weapon.AmmoGive 80
   Weapon.AmmoType "CellDAR"
@@ -531,12 +531,11 @@ ACTOR PlasmaBallDAR : FastProjectile
   Radius 4
   Height 4
   Speed 90
-  Damage (6)
+  Damage (7)
   Decal "PlasmaScorch"
   Projectile
   +RANDOMIZE
   +EXTREMEDEATH
-  +PIERCEARMOR
   RenderStyle Add
   Alpha 0.5
   SeeSound "weapons/plasmaf"
